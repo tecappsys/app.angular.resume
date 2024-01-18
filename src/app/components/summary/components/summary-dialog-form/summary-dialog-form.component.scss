@@ -1,0 +1,21 @@
+.summary-container{
+    display: flex;
+    flex-direction: column;
+    min-width: 480px;
+    .summary-form{
+        display: flex;
+        flex-direction: column;
+        padding: 16px;
+        gap: 4px;
+        width: 100%;
+        form{
+            width: 100%;
+        }
+    }
+}
+.buttons-container{
+    display: flex;
+    justify-content: flex-end;
+    padding: 8px;
+    gap: 8px;
+}

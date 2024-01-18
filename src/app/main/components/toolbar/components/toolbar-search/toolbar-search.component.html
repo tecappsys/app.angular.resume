@@ -1,0 +1,8 @@
+<div class="search-content">
+    <form [formGroup]="searchForm" style="font-size: 18px">
+        <mat-form-field>
+                <input matInput type="search" formControlName="search" placeholder="Artist" (keydown.enter)="onSearch()">
+                <mat-icon matSuffix (click)="onSearch()">search</mat-icon>
+        </mat-form-field>
+    </form>
+</div>

@@ -1,0 +1,51 @@
+
+<div class="example-container mat-elevation-z8">
+
+    <div class="mat-table-container">
+  
+      <mat-table [dataSource]="tableDataSource" matSort matSortDisableClear [matSortDisabled]="false" [matSortActive]="matSortColumn" >
+  
+        <!-- Position Column -->
+        <ng-container *ngFor="let col of columns" [matColumnDef]="col">
+          
+          <ng-container *ngIf="col !== 'actions'">
+            <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>{{displayedColumns[col].title || col}}</mat-header-cell>
+            <mat-cell *matCellDef="let row" [title]="displayedColumns[col].htmlTitle || ''">
+              <div class="container-mat-cell">
+                <img *ngIf="isImage(col,displayedColumns)" #column class="avatar" [src]="getLabel(row,col,displayedColumns)"> 
+                <iframe *ngIf="isIFrame(col,displayedColumns)" [src]="getLabel(row,col,displayedColumns) | domseguro" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe> 
+                <mat-label *ngIf="isLabel(col,displayedColumns)" #column class="mat-label">
+                  {{ getLabel(row,col,displayedColumns) }}
+                </mat-label>
+                <p *ngIf="isHtml(col,displayedColumns)" #column [innerHTML]="getLabel(row,col,displayedColumns)"></p>
+              </div>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container *ngIf="col === 'actions'">
+            <mat-header-cell mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <button mat-icon-button [matMenuTriggerFor]="menu" (click)="generateActions(row)">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <ng-container *ngFor="let action of currentActions">
+                  <div>
+                    <button *ngIf="!action.hide" mat-menu-item [disabled]="action.disable" (click)="actions(row, action)">
+                      <mat-label>{{action.title}}</mat-label>
+                    </button>
+                  </div>
+                </ng-container>
+              </mat-menu>
+            </mat-cell>
+          </ng-container>
+          
+        </ng-container>
+    
+        <mat-header-row *matHeaderRowDef="columns; sticky: true"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+      </mat-table>
+    </div>
+  
+  </div>
+  

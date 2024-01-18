@@ -1,0 +1,21 @@
+:host ::ng-deep{
+    .mat-toolbar-single-row{
+        min-height: 65px;
+    }
+}
+
+.navbar-spacer {
+    flex: 1 1 auto;
+}
+
+.navbarLeft{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 8px;
+    gap: 10px;
+    cursor: pointer;
+    h1{
+        margin: 0;
+    }
+}

@@ -1,0 +1,28 @@
+<div class="summary-container">
+    <form [formGroup]="summaryForm" class="summary-form">
+        <mat-form-field>
+            <mat-label>Summary</mat-label>
+            <textarea matInput 
+            cdkTextareaAutosize
+            cdkAutosizeMinRows="1"
+            cdkAutosizeMaxRows="5"
+            formControlName="summary"></textarea>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Skill</mat-label>
+            <mat-select formControlName="skill" (selectionChange)="skillChange($event)">
+                <mat-option *ngFor="let element of skills" [value]="element.key">{{element.value}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Category</mat-label>   
+            <mat-select formControlName="category">
+                <mat-option *ngFor="let element of category" [value]="element.key">{{element.value}}</mat-option>
+            </mat-select>
+        </mat-form-field>            
+    </form>
+</div>
+<div class="buttons-container">
+    <button mat-stroked-button (click)="close()">Close</button>
+    <button mat-flat-button color="primary" (click)="saveSummary()">Registrar</button>
+</div>

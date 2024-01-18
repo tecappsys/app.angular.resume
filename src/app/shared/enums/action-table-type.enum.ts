@@ -1,0 +1,4 @@
+export enum ACTION_TABLE_TYPE{
+    DELETE_ACTION=0,
+    EDIT_ACTION=2
+}

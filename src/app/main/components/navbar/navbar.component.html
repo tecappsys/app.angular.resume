@@ -1,0 +1,8 @@
+<mat-toolbar class="navbar">
+    <div class="navbarLeft" (click)="navigateToHome()">
+        <svg-logo class="svg-logo-icon"></svg-logo>
+        <h1>TECAPPSYS</h1>
+    </div>
+    <span class="navbar-spacer"></span>
+    <mat-slide-toggle #darkModeSwitch [formControl]="toggleControl">Theme</mat-slide-toggle>
+</mat-toolbar>

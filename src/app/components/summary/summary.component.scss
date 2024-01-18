@@ -1,0 +1,20 @@
+.buttons-container{
+    display: flex;
+    justify-content: flex-end;
+    padding: 8px;
+}
+
+:host ::ng-deep .mat-column-category{
+    flex: 0.2;
+}
+:host ::ng-deep .mat-column-skill{
+    flex: 0.2;
+}
+
+:host ::ng-deep .mat-column-actions{
+    flex: 0.1;
+}
+
+::ng-deep .marka{
+    color: red;
+}
