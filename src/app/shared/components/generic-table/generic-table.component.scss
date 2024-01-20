@@ -1,6 +1,9 @@
 /* Structure */
-.example-container {
+.table-container {
+  display: flex;
     position: relative;
+    height: 100%;
+    width: 100%;
   }
   
   table {
@@ -38,8 +41,7 @@
   .mat-table-container{
     display: flex;
     position: relative;
-    min-height: 200px;    
-    max-height:400px ;
-    display: flex;
+    min-height: 200px;   
+    height: 100%;
     overflow: auto;
   }

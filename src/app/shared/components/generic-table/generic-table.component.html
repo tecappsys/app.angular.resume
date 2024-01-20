@@ -1,5 +1,5 @@
 
-<div class="example-container mat-elevation-z8">
+<div class="table-container mat-elevation-z8">
 
     <div class="mat-table-container">
   
@@ -17,7 +17,7 @@
                 <mat-label *ngIf="isLabel(col,displayedColumns)" #column class="mat-label">
                   {{ getLabel(row,col,displayedColumns) }}
                 </mat-label>
-                <p *ngIf="isHtml(col,displayedColumns)" #column [innerHTML]="getLabel(row,col,displayedColumns)"></p>
+                <div *ngIf="isHtml(col,displayedColumns)" #column [innerHTML]="getLabel(row,col,displayedColumns)"></div>
               </div>
             </mat-cell>
           </ng-container>

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DialogService } from '@src/app/core/dialog.servic';
 import { SpinnerService } from '@src/app/core/spinner.service';
-import { Summaries } from '@src/app/shared/interface/summaries.interface';
 import { Summary } from '@src/app/shared/interface/summary.interface';
 import { SummaryDialogFormComponent } from './components/summary-dialog-form/summary-dialog-form.component';
 import { ResumeService } from '@src/app/core/resume.service';
@@ -9,6 +8,7 @@ import { ACTION_TABLE_TYPE } from '@src/app/shared/enums/action-table-type.enum'
 import { ActionTable } from '@src/app/shared/interface/action-table.interface';
 import { EntityAction } from '@src/app/shared/interface/entity-action.interface';
 import { Dialog } from '@src/app/shared/class/dialog';
+import { EntityTotals } from '@src/app/shared/interface/entity-totals.interface';
 
 @Component({
   selector: 'app-summary',
@@ -21,7 +21,7 @@ export class SummaryComponent implements OnInit {
     summary:{
       title:'Summary',
       html:true,
-      display: (element:Summary) =>{return element.summary.replaceAll('<',`<span class='marka'>[`).replaceAll('>',`]</span>`)}
+      display: (element:Summary) =>element.summary
     },
     skill:{
       title:'Skill',
@@ -46,7 +46,7 @@ export class SummaryComponent implements OnInit {
       },
       {
         type:ACTION_TABLE_TYPE.DELETE_ACTION,
-        title:'Delet'
+        title:'Delete'
       }
     ]
     return actionsTable
@@ -66,26 +66,39 @@ export class SummaryComponent implements OnInit {
   } 
 
   public getSummaries(){
-    this.resumeService.getSummaries().subscribe( (response:Summaries) =>{
+    this.resumeService.getSummaries().subscribe( (response:EntityTotals<Summary>) =>{
       if(response){
-        this.summaries = response.summaries;
-      }      
+        this.summaries = response.entity;
+        this.spinnerService.showSpinner();
+      }            
       this.spinnerService.hideSpinner();
     })
   }
 
-  public saveSummary(){
+  public newSummary(){
     const dialogRef = this.dialogService.openDialog(SummaryDialogFormComponent)
-    dialogRef.afterClosed().subscribe(()=>{
-      this.getSummaries()
+    dialogRef.afterClosed().subscribe((response)=>{
+      if(response){
+        this.getSummaries()
+      }
     })
   }
 
   public editSummary(summary:Summary){
     const diaogData:Dialog<Summary> = new Dialog<Summary>(summary);
     const dialogRef = this.dialogService.openDialog(SummaryDialogFormComponent,diaogData)
-    dialogRef.afterClosed().subscribe(()=>{
+    dialogRef.afterClosed().subscribe((response)=>{
+      if(response){
+        this.getSummaries()
+      }
+    })
+  }
+
+  public deleteSummary(summary:Summary){
+    this.spinnerService.showSpinner();
+    this.resumeService.deleteSummaries({id:summary._id}).subscribe( (response) =>{    
       this.getSummaries()
+      this.spinnerService.hideSpinner();
     })
   }
 
@@ -94,8 +107,8 @@ export class SummaryComponent implements OnInit {
       case ACTION_TABLE_TYPE.EDIT_ACTION:
         this.editSummary(change.entity);
         break;
-      case ACTION_TABLE_TYPE.EDIT_ACTION:
-        
+      case ACTION_TABLE_TYPE.DELETE_ACTION:
+        this.deleteSummary(change.entity)
         break;
     
       default:

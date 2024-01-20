@@ -1,3 +1,13 @@
+.container-summary{
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 56px);
+}
+.container-table{
+    display: flex;
+    height: calc(100% - 30px);
+    width: 100%;
+}
 .buttons-container{
     display: flex;
     justify-content: flex-end;
@@ -15,6 +25,6 @@
     flex: 0.1;
 }
 
-::ng-deep .marka{
+:host ::ng-deep strong{
     color: red;
 }

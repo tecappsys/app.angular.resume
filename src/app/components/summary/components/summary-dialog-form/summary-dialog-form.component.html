@@ -1,13 +1,8 @@
 <div class="summary-container">
     <form [formGroup]="summaryForm" class="summary-form">
-        <mat-form-field>
-            <mat-label>Summary</mat-label>
-            <textarea matInput 
-            cdkTextareaAutosize
-            cdkAutosizeMinRows="1"
-            cdkAutosizeMaxRows="5"
-            formControlName="summary"></textarea>
-        </mat-form-field>
+        <div class="ckeditor-container">
+            <ckeditor [config]="{ toolbar: [ 'bold' ] }" [editor]="ckeditor" [data]="summaryData" (change)="onChangeSummary($event)" style="width: 100%;"></ckeditor>
+        </div>
         <mat-form-field>
             <mat-label>Skill</mat-label>
             <mat-select formControlName="skill" (selectionChange)="skillChange($event)">

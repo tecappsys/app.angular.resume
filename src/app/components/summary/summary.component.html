@@ -1,12 +1,17 @@
 
-<div class="buttons-container">
-    <button mat-flat-button color="primary" (click)="saveSummary()">Registrar</button>
+<div class="container-summary">
+    <div class="buttons-container">
+        <button mat-flat-button color="primary" (click)="newSummary()">Registrar</button>
+    </div>
+    <div class="container-table">
+        <app-generic-table 
+        [tableDataSource]="summaries"
+        [displayedColumns]="displayedColumns"
+        [matSortColumn]="matSortColumn"
+        [createActions]="createActions"
+        (valueChange)="onValueChange($event)"
+        ></app-generic-table>   
+    </div>
+     
 </div>
 
-<app-generic-table 
-    [tableDataSource]="summaries"
-    [displayedColumns]="displayedColumns"
-    [matSortColumn]="matSortColumn"
-    [createActions]="createActions"
-    (valueChange)="onValueChange($event)"
-></app-generic-table>

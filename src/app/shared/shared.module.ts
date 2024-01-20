@@ -23,9 +23,13 @@ import { DomseguroPipe } from './pipes/domseguro.pipe';
 import { MatSortModule } from '@angular/material/sort';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatChipsModule } from '@angular/material/chips';
+import { CdkDrag,CdkDropList } from '@angular/cdk/drag-drop';
+
 import { Sanitize } from './pipes/sanitize.pipe';
-
-
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 @NgModule({
   providers: [ 
     Sanitize 
@@ -40,6 +44,7 @@ import { Sanitize } from './pipes/sanitize.pipe';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+
     // Material UI - Modules
     MatButtonModule,
     MatCardModule,
@@ -57,12 +62,21 @@ import { Sanitize } from './pipes/sanitize.pipe';
     MatTableModule, 
     MatSortModule,
     MatDialogModule,
-    MatMenuModule
+    MatMenuModule,
+    MatExpansionModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    CdkDrag,
+    CdkDropList,
+
+    // Others - Modules
+    CKEditorModule,
   ],
   exports:[   
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,   
+
     // Material UI - Modules
     MatButtonModule,
     MatCardModule,
@@ -81,7 +95,14 @@ import { Sanitize } from './pipes/sanitize.pipe';
     MatSortModule,
     MatDialogModule,
     MatMenuModule,
-
+    MatExpansionModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    CdkDrag,
+    CdkDropList,
+    
+    // Others - Modules
+    CKEditorModule,
     SharedComponent,   
     NoimagePipe,
     DomseguroPipe,
