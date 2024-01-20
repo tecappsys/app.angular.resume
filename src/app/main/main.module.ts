@@ -12,7 +12,6 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 import { HomeComponent } from '../components/home/home.component';
 import { RouteUrlService } from '../core/route-url.service';
 import { SpinnerService } from '../core/spinner.service';
-import { CardAppComponent } from '../components/card-app/card-app.component';
 import { ResumeService } from '../core/resume.service';
 import { SummaryComponent } from '../components/summary/summary.component';
 import { GenericTableComponent } from '../shared/components/generic-table/generic-table.component';
@@ -32,7 +31,6 @@ import { SummaryDialogFormComponent } from '../components/summary/components/sum
     // EXTRA COMPONENTS
     GenericTableComponent,
     HomeComponent,
-    CardAppComponent,
     SummaryComponent,    
     SummaryDialogFormComponent,
   ],
