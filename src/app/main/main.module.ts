@@ -17,6 +17,10 @@ import { SummaryComponent } from '../components/summary/summary.component';
 import { GenericTableComponent } from '../shared/components/generic-table/generic-table.component';
 import { DialogService } from '../core/dialog.servic';
 import { SummaryDialogFormComponent } from '../components/summary/components/summary-dialog-form/summary-dialog-form.component';
+import { GenericAccordionComponent } from '../components/generic-accordion/generic-accordion.component';
+import { AccordionPanelJobComponent } from '../components/generic-accordion/accordion-panel-job/accordion-panel-job.component';
+import { AccordionPanelSkillComponent } from '../components/generic-accordion/accordion-panel-skill/accordion-panel-skill.component';
+import { AccordionPanelExperienceComponent } from '../components/generic-accordion/accordion-panel-experience/accordion-panel-experience.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +36,11 @@ import { SummaryDialogFormComponent } from '../components/summary/components/sum
     GenericTableComponent,
     HomeComponent,
     SummaryComponent,    
-    SummaryDialogFormComponent,
+    SummaryDialogFormComponent,    
+    GenericAccordionComponent,
+    AccordionPanelJobComponent,
+    AccordionPanelSkillComponent,    
+    AccordionPanelExperienceComponent
   ],
   imports: [
     MainRoutingModule,

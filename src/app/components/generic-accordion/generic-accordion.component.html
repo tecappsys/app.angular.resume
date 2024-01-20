@@ -1,0 +1,23 @@
+<mat-accordion>
+    <div [ngSwitch]="isExperience">
+        <section *ngSwitchCase="false">
+            <app-accordion-panel-job 
+                [jobTitles]="jobTitles" 
+                (jobTitleChange)="onJobTitleChange($event)"
+            ></app-accordion-panel-job>
+            <app-accordion-panel-skill 
+                [skillsCategoryGroupBySkill]="skillsCategoryGroupBySkill" 
+                [summaries]="summaries" 
+                (summaryChange)="onSummaryChange($event)"
+            ></app-accordion-panel-skill>    
+        </section>
+        <section *ngSwitchCase="true">
+            <app-accordion-panel-experience 
+                [ckeditor]="ckeditor"
+                [dataCkeditor]="dataCkeditor"
+                [jobTitleSelected]=jobTitleSelected 
+                (ckeditorChange)="onCkeditorChange($event)"
+            ></app-accordion-panel-experience>
+        </section>
+    </div>
+</mat-accordion>

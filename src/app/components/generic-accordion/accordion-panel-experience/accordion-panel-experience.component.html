@@ -1,0 +1,13 @@
+<mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Experience</mat-panel-title>
+    </mat-expansion-panel-header>
+    <ng-container>
+      <div cdkDropList cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)">
+        <div *ngFor="let job of jobTitleSelected" class="example-box" cdkDrag>{{job.value}}</div>
+      </div>
+      <div role="main">
+        <ckeditor [config]="{ toolbar: [ 'bold' ]}" [editor]="ckeditor" [data]="dataCkeditor" (change)="onChange($event)"></ckeditor>
+      </div>
+    </ng-container>
+</mat-expansion-panel>

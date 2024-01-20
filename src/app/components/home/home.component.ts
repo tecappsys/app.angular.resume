@@ -15,6 +15,7 @@ import { asBlob } from 'html-docx-js-typescript';
 // if you want to save the docx file, you need import 'file-saver'
 // @ts-ignore
 import { saveAs } from 'file-saver';
+import { JobTitle } from '@src/app/shared/interface/job-title.interface';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -31,17 +32,7 @@ export class HomeComponent implements OnInit {
   public skillsCategory:SkillCategory[]=[];
   public skillsCategoryGroupBySkill: any[] = [];
   public getDataCkeditor:string;
-  public jobTitle:any[]=[
-    {key:'senior',value:'Senior'},
-    {key:'sr',value:'Sr'},
-    {key:'front_end',value:'Fron End'},
-    {key:'front-end',value:'Fron-End'},    
-    {key:'frontend',value:'FronEnd'},
-    {key:'back_end',value:'Back End'},
-    {key:'back-end',value:'Back-End'},    
-    {key:'backend',value:'BackEnd'},
-    {key:'developer',value:'Developer'},
-  ]
+  public jobTitles:any[]=[]
   public jobTitleSelected:any[]=[]
 
   public constructor( 
@@ -53,18 +44,20 @@ export class HomeComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.createForm();    
-    this.getSummaries();
-    this.getSkills();
-    this.getSkillsCategory();
+    this.createForm();  
+    this.getReques();
     this.spinnerService.hideSpinner();
   }
 
-  public drop(event: any) {
-    moveItemInArray(this.jobTitleSelected, event.previousIndex, event.currentIndex);
+  public getReques(){
+    this.getSummaries();
+    this.getSkills();
+    this.getSkillsCategory();
+    this.getJobTitle();
   }
 
-  public selectJobTitle(event:any,job:any){
+  public selectJobTitle(change:any){
+    const {event,job} = change;
     if(event.checked){
       this.jobTitleSelected.push(job)
     }else{
@@ -81,7 +74,8 @@ export class HomeComponent implements OnInit {
     },[])
   }
 
-  public selectSummary(event:any,summary:Summary){
+  public selectSummary(change:any){
+    const {event,summary} = change;
     if(event.checked){
       this.summary_selected.push(summary)
     }else{
@@ -92,10 +86,6 @@ export class HomeComponent implements OnInit {
 
   public onChange( {editor}: ChangeEvent ) {
     this.getDataCkeditor = editor.data.get();
-  }
-
-  public sanitizeText(text:string){
-    return text.replaceAll('<p>','').replaceAll('</p>','').replaceAll('<strong>','').replaceAll('</strong>','') 
   }
 
   private getSummaries(){
@@ -135,6 +125,14 @@ export class HomeComponent implements OnInit {
     }, []);
   }
 
+  private getJobTitle(){
+    this.resumeService.getJobTitles().subscribe( (response:EntityTotals<JobTitle>) =>{    
+      if(response){
+        this.jobTitles = response.entity;
+      }      
+    })
+  }
+
   private createForm(){
     this.summaryForm = this.fb.group({});
   }
@@ -145,13 +143,6 @@ export class HomeComponent implements OnInit {
       text.push(`<li>${summary.summary}</li>`);
     }
     this.dataCkeditor = `<ul>${text.join()}</ul>`;
-  }
-
-  private addNewControl(summary:Summary){
-      this.summaryForm = this.fb.group({
-         ...this.summaryForm.controls,
-         [summary._id]: [summary.summary]
-      });
   }
 
   async export() {
