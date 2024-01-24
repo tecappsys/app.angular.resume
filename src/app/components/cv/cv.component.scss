@@ -1,0 +1,15 @@
+.container-accordion-content{
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 10px);
+    max-height: 500px;
+    overflow: auto;
+}
+:host ::ng-deep .mat-expansion-panel-body{
+    height:100%;
+}
+
+:host ::ng-deep .mat-expansion-panel-content{
+    max-height: 600px;
+    overflow: auto;
+}

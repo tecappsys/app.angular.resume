@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MainComponent } from './main.component';
 import { HomeComponent } from '../components/home/home.component';
 import { SummaryComponent } from '../components/summary/summary.component';
+import { CvComponent } from '../components/cv/cv.component';
 
 const routes: Routes = [{
   path: '',
@@ -12,6 +13,15 @@ const routes: Routes = [{
       path:'',
       pathMatch:'full',      
       component:HomeComponent,
+      data:{
+        entity:'Home'
+      }
+    },
+
+    {
+      path:'cv',
+      pathMatch:'full',      
+      component:CvComponent,
       data:{
         entity:'Resume',
         title:'CV'

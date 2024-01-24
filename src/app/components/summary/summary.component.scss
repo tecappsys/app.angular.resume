@@ -1,7 +1,7 @@
 .container-summary{
     display: flex;
     flex-direction: column;
-    height: calc(100% - 56px);
+    height: calc(100% - 100px);
 }
 .container-table{
     display: flex;
@@ -10,8 +10,21 @@
 }
 .buttons-container{
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;    
+    width: 100%;
     padding: 8px;
+    .form-sigle-container{
+        display: flex;
+        flex-direction: row;
+        gap: 16px;
+        width: 100%;
+        .mat-mdc-form-field:nth-child(1){
+            width: 500px;
+        } 
+        .mat-mdc-form-field:nth-child(2){
+            width: 80px;
+        }        
+    }
 }
 
 :host ::ng-deep .mat-column-category{

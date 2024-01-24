@@ -26,19 +26,21 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
-import { CdkDrag,CdkDropList } from '@angular/cdk/drag-drop';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { Sanitize } from './pipes/sanitize.pipe';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { MatNativeDateModule } from '@angular/material/core';
 @NgModule({
   providers: [ 
-    Sanitize 
+    Sanitize
   ],
   declarations: [
     SharedComponent,
     NoimagePipe,
     DomseguroPipe,
-    Sanitize
+    Sanitize,
   ],
   imports: [   
     FormsModule,
@@ -66,8 +68,9 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     MatExpansionModule,
     MatCheckboxModule,
     MatChipsModule,
-    CdkDrag,
-    CdkDropList,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatPaginatorModule,
 
     // Others - Modules
     CKEditorModule,
@@ -98,8 +101,9 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     MatExpansionModule,
     MatCheckboxModule,
     MatChipsModule,
-    CdkDrag,
-    CdkDropList,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatPaginatorModule,
     
     // Others - Modules
     CKEditorModule,

@@ -1,6 +1,7 @@
 /* Structure */
 .table-container {
-  display: flex;
+    display: flex;
+    flex-direction: column;
     position: relative;
     height: 100%;
     width: 100%;

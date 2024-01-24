@@ -21,6 +21,9 @@ import { GenericAccordionComponent } from '../components/generic-accordion/gener
 import { AccordionPanelJobComponent } from '../components/generic-accordion/accordion-panel-job/accordion-panel-job.component';
 import { AccordionPanelSkillComponent } from '../components/generic-accordion/accordion-panel-skill/accordion-panel-skill.component';
 import { AccordionPanelExperienceComponent } from '../components/generic-accordion/accordion-panel-experience/accordion-panel-experience.component';
+import { LocalStorageService } from '../core/localstorage.service';
+import { CvComponent } from '../components/cv/cv.component';
+import { CvDialogSummaryComponent } from '../components/cv/components/cv-dialog-summary/cv-dialog-summary.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,9 @@ import { AccordionPanelExperienceComponent } from '../components/generic-accordi
     GenericAccordionComponent,
     AccordionPanelJobComponent,
     AccordionPanelSkillComponent,    
-    AccordionPanelExperienceComponent
+    AccordionPanelExperienceComponent,
+    CvComponent,
+    CvDialogSummaryComponent,
   ],
   imports: [
     MainRoutingModule,
@@ -55,6 +60,7 @@ import { AccordionPanelExperienceComponent } from '../components/generic-accordi
     SpinnerService,
     DialogService, 
     ResumeService,
+    LocalStorageService
   ]
 })
 

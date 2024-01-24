@@ -1,6 +1,6 @@
 <mat-expansion-panel *ngFor="let skill of skillsCategoryGroupBySkill">
     <mat-expansion-panel-header>
-      <mat-panel-title>{{skill.value}}</mat-panel-title>
+      <mat-panel-title>{{skill.skill.value}}</mat-panel-title>
     </mat-expansion-panel-header>
     <ng-container>
       <mat-expansion-panel *ngFor="let category of skill.category">
@@ -10,8 +10,11 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
         <section>
-          <mat-checkbox *ngFor="let summary of getSummaryByCategory(category.key)" 
-            (change)="selectSummary($event,summary)">
+          <mat-checkbox 
+            *ngFor="let summary of category.summary" 
+            [checked]="validateChecked(summary)"
+            (change)="selectSummary($event,summary)"
+          >
             <div class="checkbox-label" [innerHTML]="summary.summary"></div>
           </mat-checkbox>          
         </section>

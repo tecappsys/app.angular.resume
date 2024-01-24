@@ -1,0 +1,43 @@
+<div *ngIf="experienceformsControl" class="container">
+    <div class="row mb-4">
+      <div class="col d-flex justify-content-end">
+        <button mat-raised-button (click)="addExperience()">Agregar</button>
+        <button mat-raised-button (click)="export()">Exportar-Word</button>
+      </div>
+    </div>
+    <div class="row">     
+      <div class="col-6">
+        <div *ngFor="let experience of experiences" class="row">
+          <div class="col">
+            <app-generic-accordion
+              [show]="experience.show"
+              [skillsCategoryGroupBySkill]="skillsCategoryGroupBySkill" 
+              [summaries]="summaries"
+              [summarySelected]="experience.summarySelected"
+              (summaryChange)="selectSummary($event,experience)"
+            ></app-generic-accordion>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div *ngFor="let experience of experiences" class="row">
+          <div class="col-10">
+            <app-generic-accordion
+              [isExperience]="true"
+              [experienceForm]="experienceformsControl[experience.id]"
+              (formChange)="onFormChange(experience.id)"
+            ></app-generic-accordion>
+          </div>
+          <div class="col-2">
+            <button mat-mini-fab (click)="removeExperience(experience)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  
+  
+  

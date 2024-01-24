@@ -1,4 +1,4 @@
 export enum LOCAL_STORAGE_KEY{
     THEME_UI='theme',
-    TOKEN_SPOTIFY='TOKEN_SPOTIFY'
+    EXPERIENCE='experience'
 }

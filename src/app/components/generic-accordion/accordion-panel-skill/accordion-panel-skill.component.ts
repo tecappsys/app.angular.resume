@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { SkillCategoryGroupBy } from '@src/app/shared/interface/skill-category-group-by.interface';
+import { Skill } from '@src/app/shared/interface/skill.interface';
 import { Summary } from '@src/app/shared/interface/summary.interface';
 
 @Component({
@@ -8,19 +10,11 @@ import { Summary } from '@src/app/shared/interface/summary.interface';
 })
 export class AccordionPanelSkillComponent {
   @Output() public summaryChange: EventEmitter<any> = new EventEmitter();
-  @Input() public skillsCategoryGroupBySkill: any[] = [];
+  @Input() public skillsCategoryGroupBySkill: SkillCategoryGroupBy<Skill>[] = [];
   @Input() public summaries:Summary[]=[];
+  @Input() public summarySelected:Summary[]=[]
 
   public constructor(){}
-
-  public getSummaryByCategory(category:string){
-    return this.summaries.reduce((acc:any[],item) => {
-      if(item.category == category){
-        acc.push(item)
-      }
-      return acc
-    },[])
-  }
 
   public selectSummary(event:any,summary:Summary){
     this.summaryChange.emit({event,summary});
@@ -29,4 +23,9 @@ export class AccordionPanelSkillComponent {
   public sanitizeText(text:string){
     return text.replaceAll('<p>','').replaceAll('</p>','').replaceAll('<strong>','').replaceAll('</strong>','') 
   }
+
+  public validateChecked(summary:Summary){
+    return this.summarySelected.find(e => e._id === summary._id) ? true : false;
+  }
+
 }
