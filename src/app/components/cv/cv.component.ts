@@ -10,13 +10,13 @@ import { asBlob } from 'html-docx-js-typescript';
 // if you want to save the docx file, you need import 'file-saver'
 // @ts-ignore
 import { saveAs } from 'file-saver';
-import { UUID } from 'angular2-uuid';
 import { SkillCategoryGroupBy } from '@src/app/shared/interface/skill-category-group-by.interface';
 import { Experience } from '@src/app/shared/interface/experience.interface';
 import { LocalStorageService } from '@src/app/core/localstorage.service';
 import { LOCAL_STORAGE_KEY } from '@src/app/shared/enums/local-storage-key.enum';
 import { DateUtils } from '@src/app/shared/utils/date';
 import { UntypedFormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cv',
@@ -28,110 +28,69 @@ export class CvComponent  implements OnInit {
   public summaries:Summary[]=[];
   public skillsCategoryGroupBySkill: any[] = [];
   public experiences:Experience[]=[]
-  public experienceformsControl:any;
+  public experienceformControl:any;
+  public experienceSelected:string;
+  public URL_MULTIPLE_ADD_SUMMARY:string = '/multiple-add-summary'
 
   public constructor( 
+    private router:Router,
     private spinnerService:SpinnerService, 
     private resumeService:ResumeService,
     private localStoragaeService:LocalStorageService,
-    private fb: UntypedFormBuilder
+    private fb: UntypedFormBuilder,
   ){
     this.spinnerService.showSpinner();
   }
 
   public ngOnInit(): void {
+    this.createExperienceformControl();
     this.getReques();
     this.spinnerService.hideSpinner();
   }
 
-  public selectSummary(change:any,experience:Experience){
-    const {event,summary} = change;
-    if(event.checked){
-      experience.summarySelected.push(summary)
-    }else{
-      experience.summarySelected = experience.summarySelected.filter( e => e !== summary )
-    }
-    this.setDataCkeditor(experience);
-  }
-
-  public addExperience(){
-    const id = UUID.UUID();
-    this.createNewExperienceForm(id);
-    this.experiences.push(
-      {
-        id:id,
-        summarySelected:[],
-        dataCkeditor:'',
-        show:this.experiences.length === 0,
-        country:'',
-        jobTitle:'',
-        employer:'',
-        startDate:'',
-        endDate:''
-      }
-    )
-    this.setLocalStorage();
-  }
-
-  private addExperienceForm(experience:Experience){
-    this.experienceformsControl={
-      ...this.experienceformsControl,
-      [experience.id]:this.fb.group({
-        jobTitle:[experience.jobTitle],
-        employer:[experience.employer],
-        present:[(experience.endDate === null)],
-        country:[experience.country],
-        startDate:[experience.startDate],
-        endDate:[{value:experience.endDate === null, disabled: (experience.endDate === null)}],
-        editor:[experience.dataCkeditor],
-        show:[experience.show]
-      })
-    }
-  }
-
-  private createNewExperienceForm(id:string){
-    this.experienceformsControl={
-      ...this.experienceformsControl,
-      [id]:this.fb.group({
-        jobTitle:['Job title'],
-        employer:['Employer name'],
-        present:[false],
-        country:[''],
-        startDate:[''],
-        endDate:[{value:'', disabled: false}],
-        editor:[''],
-        show:[false]
-      })
-    } 
+  public addSummary(){
+    this.router.navigate( [`${this.URL_MULTIPLE_ADD_SUMMARY}`] );
   }
 
   public removeExperience(experience:Experience){
-    this.experiences = this.experiences.filter(e => e.id != experience.id);
+    this.experiences = this.experiences.filter(e => e._id != experience._id);
     this.setLocalStorage();
   }
 
-  public onFormChange(id:string){
-    for(let formsControl in this.experienceformsControl){
-      if(formsControl !== id && this.experienceformsControl[id].get('show')?.value){
-        this.experienceformsControl[formsControl].controls['show'].setValue(false)
-      }
-    }
-    this.experiences = this.experiences.map( (experience:Experience)=>{
-      if(experience.id === id){
-        experience.jobTitle = this.experienceformsControl[id].get('jobTitle')?.value;
-        experience.employer = this.experienceformsControl[id].get('employer')?.value;
-        experience.country = this.experienceformsControl[id].get('country')?.value;
-        experience.startDate = this.experienceformsControl[id].get('startDate')?.value;
-        experience.endDate = this.experienceformsControl[id].get('present')?.value ? null : this.experienceformsControl[id].get('endDate')?.value;
-        experience.dataCkeditor = this.experienceformsControl[id].get('editor')?.value;
-        experience.show = this.experienceformsControl[id].get('show')?.value;
-      }else if(this.experienceformsControl[id].get('show')?.value){
-        experience.show = false;
-      }
-      return experience
+  public emptySummaries(){
+    this.spinnerService.showSpinner();
+    this.resumeService.putExperienceEmptySummary().subscribe( (response:EntityTotals<Summary>) =>{    
+      this.spinnerService.hideSpinner(); 
     })
+  }
+
+  public onFormChange(id:string){
+  //   for(let formsControl in this.experienceformControl){
+  //     if(formsControl !== id && this.experienceformControl[id].get('show')?.value){
+  //       this.experienceformControl[formsControl].controls['show'].setValue(false)
+  //     }
+  //   }
+  //   this.experiences = this.experiences.map( (experience:Experience)=>{
+  //     if(experience.id === id){
+  //       experience.jobTitle = this.experienceformControl[id].get('jobTitle')?.value;
+  //       experience.employer = this.experienceformControl[id].get('employer')?.value;
+  //       experience.country = this.experienceformControl[id].get('country')?.value;
+  //       experience.startDate = this.experienceformControl[id].get('startDate')?.value;
+  //       experience.endDate = this.experienceformControl[id].get('present')?.value ? null : this.experienceformControl[id].get('endDate')?.value;
+  //     }
+  //     return experience
+  //   })
     
-   this.setLocalStorage();
+  //  this.setLocalStorage();
+  }
+
+  public onExperienceSelect(experience:Experience){
+    this.experienceSelected = experience._id
+    this.addExperienceForm(experience)
+  }
+
+  public addExperience(){
+    
   }
 
   private getReques(){
@@ -173,25 +132,20 @@ export class CvComponent  implements OnInit {
   }
 
   private getExperience(){
-    this.localStoragaeService.getItem<Experience[]>(LOCAL_STORAGE_KEY.EXPERIENCE).subscribe( (response:Experience[]) =>{
+    this.resumeService.getExperiences().subscribe( (response:EntityTotals<Experience>) =>{
       if(response){
-        this.experiences = response;
-        for(let experience of this.experiences){
-          this.addExperienceForm(experience);
-        }        
-      }else{
-        this.addExperience();
+        this.experiences = response.entity;       
       }
     })
   }
 
   private setDataCkeditor(experience:Experience){
-    let text = [];
-    for(let summary of experience.summarySelected){
-      text.push(`<li>${summary.summary}</li>`);
-    }
-    experience.dataCkeditor = `<ul>${text.join('')}</ul>`;
-    this.experienceformsControl[experience.id].controls['editor'].setValue(experience.dataCkeditor)
+    // let text = [];
+    // for(let summary of experience.summarySelected){
+    //   text.push(`<li>${summary.summary}</li>`);
+    // }
+    // experience.dataCkeditor = `<ul>${text.join('')}</ul>`;
+    // this.experienceformControl[experience.id].controls['editor'].setValue(experience.dataCkeditor)
   }
 
   private generateBlob(){
@@ -200,7 +154,7 @@ export class CvComponent  implements OnInit {
       const employer = this.formatTagSpan( item.employer );
       const country = this.formatTagSpan( item.country );
       const date = this.formatTagSpan( `${DateUtils.formatDate(item.startDate)} - ${item.endDate ? DateUtils.formatDate(item.endDate) : 'Present'}` );
-      const summary = `${this.transformSummary(item.dataCkeditor)}`;
+      const summary = `${this.transformSummary('')}`;
       return acc = `${acc} ${title} ${employer} ${country} ${date} ${summary} <br><br>`
     },'')
     return `${this.resumeService.getCabecera()} ${experiences} ${this.resumeService.getFooter()}`
@@ -231,6 +185,28 @@ export class CvComponent  implements OnInit {
 
   private openSpan(){
     return '<span style="font-family: Arial; font-size:13px;font-weight: normal;">'
+  }
+
+  private createExperienceformControl(){
+    this.experienceformControl= this.fb.group({
+      jobTitle:[''],
+      employer:[''],
+      present:[false],
+      country:[''],
+      startDate:[''],
+      endDate:[{value:'', disabled: false}],
+      summary:['']
+    })
+  }
+
+  private addExperienceForm(experience:Experience){
+    this.experienceformControl.controls['jobTitle'].setValue(experience.jobTitle);
+    this.experienceformControl.controls['employer'].setValue(experience.employer);
+    this.experienceformControl.controls['present'].setValue( (experience.endDate === null) );
+    this.experienceformControl.controls['country'].setValue(experience.country);
+    this.experienceformControl.controls['startDate'].setValue(experience.startDate);
+    this.experienceformControl.controls['endDate'].setValue(experience.endDate);
+    this.experienceformControl.controls['summary'].setValue(experience.summary);
   }
 
 }

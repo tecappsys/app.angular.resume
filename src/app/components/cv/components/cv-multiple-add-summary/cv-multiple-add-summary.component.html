@@ -1,0 +1,57 @@
+
+
+
+<div class="container-view">
+  <div style="width: 60%;">
+    <div class="buttons-container">
+      <form [formGroup]="summaryForm" style="font-size: 18px; width: 100%;">
+          <div class="form-sigle-container">
+            <mat-form-field class="form-search">
+              <mat-label>Search</mat-label>
+              <input matInput formControlName="search" placeholder="Search">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Appears</mat-label>
+              <input matInput type="number" min="1" formControlName="appears" placeholder="Appears">
+            </mat-form-field>
+            <div class="container-button">
+              <button mat-raised-button (click)="onSearch()" [disabled]="disabledSearch">Filter</button>
+            </div>
+          </div>
+      </form>
+    </div>
+    <div class="container-table">
+      <app-generic-table 
+      style="width: 100%;"
+      [tableDataSource]="summaries"
+      [displayedColumns]="displayedColumns"
+      [matSortColumn]="matSortColumn"
+      (valueChange)="onValueChange($event)"
+      ></app-generic-table>   
+    </div>
+  </div>
+  <div style="width: 40%;">
+      <div class="container-form">
+        <div class="container-button">
+          <button mat-raised-button (click)="onSaveSummaries()" [disabled]="summarySelected.length === 0">Save</button>
+          <button mat-raised-button (click)="onAutomaticLoad()" [disabled]="summarySelected.length === 0">Automatic Load</button>
+        </div>
+        <form [formGroup]="experienceForm">
+          <div *ngFor="let experience of experiences" class="container-experience-form">
+            <mat-form-field>
+              <mat-label>{{experience.employer}}</mat-label>
+              <mat-select [formControlName]="experience._id" [placeholder]="experience.employer" [attr.name]="experience._id">
+                <mat-option *ngFor="let summary of summarySelected" [value]="summary._id">
+                  {{summary.summary}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div>
+              <mat-icon>{{getStatus(experience)}}</mat-icon>
+            </div>
+          </div>
+        </form>        
+      </div>
+  </div>
+</div>
+

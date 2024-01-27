@@ -1,43 +1,68 @@
-<div *ngIf="experienceformsControl" class="container">
-    <div class="row mb-4">
-      <div class="col d-flex justify-content-end">
-        <button mat-raised-button (click)="addExperience()">Agregar</button>
-        <button mat-raised-button (click)="export()">Exportar-Word</button>
-      </div>
+
+<div class="row mb-4">
+  <div class="col d-flex justify-content-end">
+    <button mat-raised-button (click)="emptySummaries()">Empty Summaries</button>
+    <button mat-raised-button (click)="addSummary()">Add Summary</button>
+    <button mat-raised-button (click)="addExperience()">Add Job</button>
+    <button mat-raised-button (click)="export()">Export</button>
+  </div>
+</div>
+
+<div class="container-view">
+
+  <div style="width: 39%;">
+    <div class="container-experiences">
+      <mat-card *ngFor="let experience of experiences" [ngClass]="{'invert-color': experience._id === experienceSelected}" (click)="onExperienceSelect(experience)">
+        <mat-card-content>
+          <div style="display:flex;flex-direction: column;justify-content: center;align-items: flex-start;">
+            <span>{{experience.jobTitle}}</span>
+            <span style="font-size: 10px;">{{experience.employer}}</span>
+          </div>      
+        </mat-card-content>
+      </mat-card>
+    </div>   
+    <div class="container-buttons">
+      <button mat-mini-fab color="basic"> <mat-icon>clear</mat-icon> </button>
+      <button mat-mini-fab> <mat-icon>add</mat-icon> </button>
     </div>
-    <div class="row">     
-      <div class="col-6">
-        <div *ngFor="let experience of experiences" class="row">
-          <div class="col">
-            <app-generic-accordion
-              [show]="experience.show"
-              [skillsCategoryGroupBySkill]="skillsCategoryGroupBySkill" 
-              [summaries]="summaries"
-              [summarySelected]="experience.summarySelected"
-              (summaryChange)="selectSummary($event,experience)"
-            ></app-generic-accordion>
-          </div>
-        </div>
+  </div>
+  <div style="width: 59%;">
+    <app-cv-summary [experienceForm]="experienceformControl"></app-cv-summary>   
+  </div>
+  
+</div>
+
+<!--   
+<div class="row">     
+  <div class="col-4 h-100">
+    <div class="container-experiences">
+      <mat-card *ngFor="let experience of experiences">
+        <mat-card-content>
+          <div style="display:flex;flex-direction: column;justify-content: center;align-items: flex-start;">
+            <span>{{experience.jobTitle}}</span>
+            <span style="font-size: 10px;">{{experience.employer}}</span>
+          </div>      
+        </mat-card-content>
+      </mat-card>
+    </div>   
+    <div>
+      <button mat-mini-fab> <mat-icon>home</mat-icon> </button>
+      <button mat-mini-fab> <mat-icon>home</mat-icon> </button>
+    </div>
+  </div>
+  <div class="col-8">
+    <div *ngFor="let experience of experiences" class="row">
+      <div class="col-11">
+        <app-cv-accordion-summary
+          [experienceForm]="experienceformsControl[experience.id]"
+          (formChange)="onFormChange(experience.id)"
+        ></app-cv-accordion-summary>
       </div>
-      <div class="col-6">
-        <div *ngFor="let experience of experiences" class="row">
-          <div class="col-10">
-            <app-generic-accordion
-              [isExperience]="true"
-              [experienceForm]="experienceformsControl[experience.id]"
-              (formChange)="onFormChange(experience.id)"
-            ></app-generic-accordion>
-          </div>
-          <div class="col-2">
-            <button mat-mini-fab (click)="removeExperience(experience)">
-              <mat-icon>delete</mat-icon>
-            </button>
-          </div>
-        </div>
-        
+      <div class="col-1">
+        <button mat-mini-fab (click)="removeExperience(experience)">
+          <mat-icon>delete</mat-icon>
+        </button>
       </div>
     </div>
   </div>
-  
-  
-  
+</div> -->

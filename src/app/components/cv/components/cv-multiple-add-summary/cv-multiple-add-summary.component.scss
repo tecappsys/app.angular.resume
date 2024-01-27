@@ -1,0 +1,89 @@
+:host ::ng-deep .mat-column-summary{
+    flex: 2;
+}
+:host ::ng-deep .mat-column-coincidences{
+    flex: 0.5;
+}
+:host ::ng-deep .mat-column-coincidences_length{
+    flex: 0.2;
+}
+
+:host ::ng-deep .mat-column-checkbox{
+    flex: 0.1;
+}
+
+.container-view{
+    display: flex;
+    height: calc(100% - 65px);
+    overflow: auto;
+}
+
+.container-table{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 16px 0;
+    overflow: auto;
+    height: calc(100% - 75px);
+    .mat-mdc-card {
+        width: 100%;
+    }
+}
+
+.container-form{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 0 24px;
+    .mat-mdc-form-field{
+        width: 100%;
+    }
+}
+
+.container-button{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.container-summary{
+    display: flex;
+    flex-direction: column;
+    min-width: 1010px;
+    max-height: 500px;
+    overflow: auto;
+    padding: 16px 24px;
+}
+
+.buttons-container{
+    display: flex;
+    justify-content: space-between;    
+    width: 100%;
+    padding: 8px;
+    .form-sigle-container{
+        display: flex;
+        flex-direction: row;
+        gap: 16px;
+        width: 100%;
+        .mat-mdc-form-field:nth-child(1){
+            width: 85%;
+        } 
+        .mat-mdc-form-field:nth-child(2){
+            width: 15%;
+        }        
+    }
+}
+
+::ng-deep .mat-mdc-option .mdc-list-item__primary-text{
+    text-overflow: ellipsis;
+    max-width: 315px;
+    white-space: nowrap !important;
+    overflow: hidden;
+}
+
+.container-experience-form{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+}

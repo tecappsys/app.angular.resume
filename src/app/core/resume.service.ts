@@ -8,6 +8,7 @@ import { Summary } from '../shared/interface/summary.interface';
 import { Skill } from '../shared/interface/skill.interface';
 import { SkillCategory } from '../shared/interface/skill-category.interface';
 import { JobTitle } from '../shared/interface/job-title.interface';
+import { Experience } from '../shared/interface/experience.interface';
 @Injectable()
 export class ResumeService {
 
@@ -16,6 +17,9 @@ export class ResumeService {
   private URL_SKILL:string = `${this.API}/skill`
   private URL_SKILL_CATEGORY:string = `${this.API}/skill_category`
   private URL_JOB_TITLES:string = `${this.API}/job_title`
+  private URL_EXPERIENCES:string = `${this.API}/experience`
+  private URL_EXPERIENCE_ADD_SUMMARY:string = `${this.API}/experience/summary`
+  private URL_EXPERIENCE_EMPTY_SUMMARY:string = `${this.API}/experience/summary/empty`
   private profesionalSummary:string = `I am a Senior Front-End Developer at Knowmad mood, a web development company that specializes in creating user-friendly and responsive websites. My core competencies include web accessibility, data integration, code quality, and performance optimization.
   In my current role, I participate in new technologies and front-end architecture discussions to recommend system changes and enhancements. I employ best practices in software development to complete high-quality applications in line with scheduled targets. I integrate advanced technologies and tools to improve software performance. I also collaborate with back-end developers and other stakeholders to drive seamless integration of front-end and back-end components. Some of the skills that I use and develop in my projects are React, Angular, Ionic, Handlebars.js, Contentfull, and Tailwind CSS. I am creating web applications that are user-friendly, accessible, and responsive. I value teamwork, innovation, and customer satisfaction. I bring diverse perspectives and experiences to the team, as I have worked in different domains and industries, such as Expand Omnichannel and TINET S.A.
   `
@@ -48,6 +52,18 @@ export class ResumeService {
 
   public getJobTitles() {
     return this.http.get(this.URL_JOB_TITLES) as Observable<EntityTotals<JobTitle>>;
+  }
+
+  public getExperiences() {
+    return this.http.get(this.URL_EXPERIENCES) as Observable<EntityTotals<Experience>>;
+  }
+
+  public putExperienceAddSummary(data:any) {
+    return this.http.put(this.URL_EXPERIENCE_ADD_SUMMARY,data) as Observable<any>;
+  }
+
+  public putExperienceEmptySummary() {
+    return this.http.put(this.URL_EXPERIENCE_EMPTY_SUMMARY,{}) as Observable<any>;
   }
 
   public getCabecera(){

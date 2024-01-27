@@ -15,6 +15,8 @@ export class GenericTableComponent<T> {
   @Output() public valueChange: EventEmitter<any> = new EventEmitter();
   @Input() public tableDataSource:any;
   @Input() public columns: string[] = []; 
+  @Input() public showPaginator: boolean= false; 
+  @Input() public disabledCheckbox:any;
   public entityAction: any;
   public _displayedColumns:any={};
   private _matSortColumn:string;
@@ -68,6 +70,22 @@ export class GenericTableComponent<T> {
     this.entityAction = {
       entity:entity,
       action: action
+    }
+    this.valueChange.emit(this.entityAction)
+  }
+
+  public onDisabledCheckbox(row:any){
+    let disabled = this.disabledCheckbox;
+    if(this.disabledCheckbox){
+      
+    }
+    return disabled
+  }
+
+  public onChangeCheckbox(event:any,entity:any){
+    this.entityAction = {
+      entity:entity,
+      action: event.checked
     }
     this.valueChange.emit(this.entityAction)
   }

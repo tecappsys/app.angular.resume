@@ -1,11 +1,11 @@
+import { Summary } from "./summary.interface";
+
 export interface Experience{
-    id:string;
-    summarySelected:any[];
-    dataCkeditor:string;
-    show:boolean;
+    _id:string;
     country:string;
     jobTitle:string;
     employer:string;
     startDate:string;
-    endDate:string|null
+    endDate:string|null;
+    summary:Summary[]
 };

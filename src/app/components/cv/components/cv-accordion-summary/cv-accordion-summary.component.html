@@ -1,0 +1,60 @@
+<mat-accordion>
+    <mat-expansion-panel
+        *ngIf="experienceForm"
+        [expanded]="show" 
+        (opened)="panelState(true)"
+        (closed)="panelState(false)"
+    >
+        <mat-expansion-panel-header>
+            <mat-panel-title *ngIf="!show">{{getJobTitle}}</mat-panel-title>
+            <mat-panel-description *ngIf="!show">{{getEmployerTitle}}</mat-panel-description>
+        </mat-expansion-panel-header>
+        
+        <ng-container>
+            <form [formGroup]="experienceForm" style="font-size: 18px">
+                <div class="row">
+                    <div class="col-6">
+                        <mat-form-field class="middle-">
+                            <mat-label>Job Title</mat-label>
+                            <input matInput formControlName="jobTitle" placeholder="JobTitle" (keyup)="onFormChange()">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-6">
+                        <mat-form-field>
+                            <mat-label>Employer</mat-label>
+                            <input matInput formControlName="employer" placeholder="Employer" (keyup)="onFormChange()">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row py-4">
+                    <div class="col-5">
+                        <mat-form-field>
+                            <mat-label>Country</mat-label>
+                            <input matInput formControlName="country" placeholder="Country" (keyup)="onFormChange()">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                        <mat-form-field>
+                            <mat-label>Start date</mat-label>
+                            <input matInput formControlName="startDate" [matDatepicker]="startPicker" (dateChange)="onFormChange()" readonly>
+                            <mat-datepicker-toggle matIconSuffix [for]="startPicker"></mat-datepicker-toggle>
+                            <mat-datepicker #startPicker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-4  d-flex flex-row align-items-center">
+                        <mat-form-field>
+                            <mat-label>End date</mat-label>
+                            <input matInput formControlName="endDate" [matDatepicker]="endPicker" (dateChange)="onFormChange()" readonly>
+                            <mat-datepicker-toggle matIconSuffix [for]="endPicker"></mat-datepicker-toggle>
+                            <mat-datepicker #endPicker></mat-datepicker>
+                        </mat-form-field>
+                        <mat-checkbox formControlName="present" (change)="onPresentChange($event)">Present</mat-checkbox>
+                    </div>
+                </div>                
+                <div role="main">
+                    <ckeditor [editor]="ckeditor" [config]="{ toolbar: [ 'bold' ]}" formControlName="editor" (change)="onFormChange()"></ckeditor>
+                </div>
+            </form>
+        </ng-container>
+    </mat-expansion-panel> 
+</mat-accordion>

@@ -4,6 +4,7 @@ import { MainComponent } from './main.component';
 import { HomeComponent } from '../components/home/home.component';
 import { SummaryComponent } from '../components/summary/summary.component';
 import { CvComponent } from '../components/cv/cv.component';
+import { CvMultipleAddSummaryComponent } from '../components/cv/components/cv-multiple-add-summary/cv-multiple-add-summary.component';
 
 const routes: Routes = [{
   path: '',
@@ -35,6 +36,17 @@ const routes: Routes = [{
       data:{
         entity:'Resume',
         title:'Summary'
+      }
+    },
+
+    {
+      path:'multiple-add-summary',
+      pathMatch:'full',      
+      component:CvMultipleAddSummaryComponent,
+      data:{
+        entity:'Resume',
+        title:'Add Summary',                
+        urlBack:'/cv'
       }
     },
     

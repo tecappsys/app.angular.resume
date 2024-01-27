@@ -44,7 +44,6 @@ export class SummaryComponent implements OnInit {
   public summaryForm:any;
   public dataRecursive:any[];
 
-
   public createActions = (row:Summary):ActionTable[]=>{
     const actionsTable:ActionTable[] = [
       {
@@ -78,7 +77,7 @@ export class SummaryComponent implements OnInit {
     this.resumeService.getSummaries().subscribe( (response:EntityTotals<Summary>) =>{
       if(response){
         this.summaries = response.entity;
-        this.dataSummaries = response.entity;      
+        this.dataSummaries = response.entity; 
         this.spinnerService.showSpinner();
       }            
       this.spinnerService.hideSpinner();
@@ -196,4 +195,6 @@ export class SummaryComponent implements OnInit {
     return results 
   }
   
+
+
 }

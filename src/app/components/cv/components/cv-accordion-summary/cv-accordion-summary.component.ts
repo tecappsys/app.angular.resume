@@ -1,12 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+
 @Component({
-  selector: 'app-accordion-panel-experience',
-  templateUrl: './accordion-panel-experience.component.html',
-  styleUrls: ['./accordion-panel-experience.component.scss']
+  selector: 'app-cv-accordion-summary',
+  templateUrl: './cv-accordion-summary.component.html',
+  styleUrls: ['./cv-accordion-summary.component.scss']
 })
-export class AccordionPanelExperienceComponent implements OnInit{
+export class CvAccordionSummaryComponent implements OnInit{
 
   @Output() public formChange: EventEmitter<void> = new EventEmitter();
   @Input() public experienceForm:FormGroup

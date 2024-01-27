@@ -8,7 +8,7 @@
         <!-- Position Column -->
         <ng-container *ngFor="let col of columns" [matColumnDef]="col">
           
-          <ng-container *ngIf="col !== 'actions'">
+          <ng-container *ngIf="col !== 'actions' && col !== 'checkbox'">
             <mat-header-cell mat-header-cell *matHeaderCellDef mat-sort-header>{{displayedColumns[col].title || col}}</mat-header-cell>
             <mat-cell *matCellDef="let row" [title]="displayedColumns[col].htmlTitle || ''">
               <div class="container-mat-cell">
@@ -39,6 +39,13 @@
               </mat-menu>
             </mat-cell>
           </ng-container>
+
+          <ng-container *ngIf="col === 'checkbox'">
+            <mat-header-cell mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <mat-checkbox (change)="onChangeCheckbox($event,row)" [disabled]="onDisabledCheckbox(row)"></mat-checkbox>
+            </mat-cell>
+          </ng-container>
           
         </ng-container>
     
@@ -49,5 +56,5 @@
   
   </div>
 
-  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+  <mat-paginator *ngIf="showPaginator" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
   
